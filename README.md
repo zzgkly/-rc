@@ -1,1 +1,1 @@
-My use vimrc , zshrc and bashrc
+This is my setting of vimrc , zshrc and bashrc.
