@@ -1,30 +1,139 @@
-export LANG="en_US.UTF-8"
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-export ZSH=$HOME/.oh-my-zsh
-plugins=(git autojump zsh-syntax-highlighting zsh-autosuggestions)
-ZSH_THEME="powerlevel9k/powerlevel9k"
+# Path to your oh-my-zsh installation.
+export ZSH="/home/zhouan/.oh-my-zsh"
 
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS=true
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+
+
+
+
+
+
+
+# --------------------------------- ALIASES -----------------------------------
+# color
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias diff='diff --color=auto'
+alias pacman='pacman --color=auto'
+# other
+#alias ..='cd ..'
 alias glog='setterm -linewrap off && git glog && setterm -linewrap on'
+alias scss='scss --no-cache --quiet --sourcemap=none'
+alias xclip='xclip -selection c'
+# replace commands
+command -v vim &> /dev/null && alias vi='vim'
 command -v lsd &> /dev/null && alias ls='lsd --group-dirs first'
 command -v colorls &> /dev/null && alias ls='colorls --sd --gs'
 command -v htop &> /dev/null && alias top='htop'
 command -v gotop &> /dev/null && alias top='gotop -p'
-
-alias vi='vim'
-alias pacman='pacman --color=always'
-alias scss='scss --no-cache --quiet --sourcemap=none'
-alias xclip='xclip -selection c'
+command -v ytop &> /dev/null && alias top='ytop -p'
 
 
-
+# ----------------------------------- MISC -----------------------------------
 export VISUAL=vim
 export EDITOR=$VISUAL
 
+# enable terminal linewrap
+setterm -linewrap on
+
+# colorize man pages
 export LESS_TERMCAP_mb=$'\e[1;32m'
 export LESS_TERMCAP_md=$'\e[1;32m'
 export LESS_TERMCAP_me=$'\e[0m'
@@ -33,6 +142,7 @@ export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 export LESSHISTFILE=-
+
 
 # ------------------------------- ZSH SETTINGS --------------------------------
 # ----- options -----
@@ -56,6 +166,12 @@ setopt INTERACTIVE_COMMENTS
 setopt MAGIC_EQUAL_SUBST
 setopt NULL_GLOB
 
+HISTFILE="$HOME/.cache/zsh_history"
+HIST_STAMPS=mm/dd/yyyy
+DISABLE_UPDATE_PROMPT=true
+HISTSIZE=5000
+SAVEHIST=5000
+ZLE_RPROMPT_INDENT=0
 
 # ----- keys -----
 bindkey '^[[2~' overwrite-mode
@@ -67,21 +183,46 @@ bindkey '^[[4~' end-of-line
 bindkey '^[[1;5C' forward-word
 bindkey '^[[1;5D' backward-word
 bindkey '^[[3;5~' kill-word
+bindkey '^[[5~' beginning-of-buffer-or-history
+bindkey '^[[6~' end-of-buffer-or-history
+
 
 # ----- promt -----
 PS1="%F{cyan} %~ >%F{blue}> %F{reset}"
 
 # ----- plugins -----
-PLUGINS_DIR=/home/zhouan/.oh-my-zsh/plugins
-source $PLUGINS_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh 2> /dev/null || echo -e '\033[33m[ ! ]\033[0m ZSH auto-suggestions not installed'
-source $PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2> /dev/null || echo -e '\033[33m[ ! ]\033[0m ZSH highlighting not installed'
+# plugin source helper
+_source_plugin() {
+	plugin_installed=false
+	plugin_name="$1"
 
+	for basedir in /usr/share/zsh/plugins /usr/share
+	do
+		plugin="$basedir/$plugin_name/$plugin_name.zsh"
+		[ -f "$plugin" ] \
+			&& source "$plugin" \
+			&& plugin_installed=true
+	done
+
+	[ $plugin_installed = false ] \
+		&& echo -e "\033[33m[ ! ]\033[0m ZSH ${plugin_name#zsh-} not installed"
+}
+
+# ZSH Autosuggestions
+_source_plugin zsh-autosuggestions
+
+# ZSH Syntax Highlighting
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#ccc'
+_source_plugin zsh-syntax-highlighting
+
+# ZSH completion system
 autoload compinit && compinit -d "$HOME/.cache/zcompdump"
 
 
 # -------------------------------- POWERLEVEL ---------------------------------
 
 POWERLEVEL9K_MODE=nerdfont-complete
+POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
@@ -117,8 +258,10 @@ POWERLEVEL9K_CUSTOM_OS_ICON_FOREGROUND=white
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_os_icon root_indicator ssh dir dir_writable vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time status background_jobs time ram)
 
-if [[ $(tty) == /dev/pts/* ]]; then
-	source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme 2> /dev/null || echo -e '\033[33m[ ! ]\033[0m ZSH powerlevel10k not installed'
+if [[ $(tty) == /dev/pts/* ]]
+then
+	source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme 2> /dev/null || \
+		echo -e '\033[33m[ ! ]\033[0m ZSH powerlevel10k not installed'
 else
 	clear
 	echo
@@ -127,24 +270,23 @@ fi
 
 
 switch_powerlevel_multiline_prompt(){
-	if [ $POWERLEVEL9K_PROMPT_ON_NEWLINE = true ]
-	then
-		POWERLEVEL9K_PROMPT_ON_NEWLINE=false
-		POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
-	else
-		POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-		POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
-	fi
+	[ $POWERLEVEL9K_PROMPT_ON_NEWLINE = true ] \
+		&& POWERLEVEL9K_PROMPT_ON_NEWLINE=false \
+		|| POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+
 	zle && zle accept-line
 }
 zle -N switch_powerlevel_multiline_prompt
 bindkey ^P switch_powerlevel_multiline_prompt
 
+
 # -------------------------------- FUNCTIONS ---------------------------------
 lazygit() {
 	USAGE="
 lazygit [OPTION]... <msg>
+
     GIT but lazy
+
     Options:
         --fixup <commit>        runs 'git commit --fixup <commit> [...]'
         --amend                 runs 'git commit --amend --no-edit [...]'
@@ -191,6 +333,7 @@ lazygit [OPTION]... <msg>
 	elif [ "$COMMIT" != '' ]
 	then
 		git commit --fixup "$COMMIT"
+		GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash "$COMMIT^"
 	else
 		git commit -m "$MESSAGE"
 	fi
@@ -208,5 +351,3 @@ find() {
 }
 
 
-
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
