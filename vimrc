@@ -1,3 +1,27 @@
+" All system-wide defaults are set in $VIMRUNTIME/archlinux.vim (usually just
+" /usr/share/vim/vimfiles/archlinux.vim) and sourced by the call to :runtime
+" you can find below.  If you wish to change any of those settings, you should
+" do it in this file (/etc/vimrc), since archlinux.vim will be overwritten
+" everytime an upgrade of the vim packages is performed.  It is recommended to
+" make changes after sourcing archlinux.vim since it alters the value of the
+" 'compatible' option.
+
+" This line should not be removed as it ensures that various options are
+" properly set to work with the Vim-related packages.
+runtime! archlinux.vim
+
+" If you prefer the old-style vim functionalty, add 'runtime! vimrc_example.vim'
+" Or better yet, read /usr/share/vim/vim80/vimrc_example.vim or the vim manual
+" and configure vim to your own liking!
+
+" do not load defaults if ~/.vimrc is missing
+"let skip_defaults_vim=1
+
+
+
+
+
+
 "基础设置
 set nocompatible                " don't bother with vi compatibility "
 set autoread                    " reload files when changed on disk, i.e. via `git checkout` "
@@ -63,53 +87,77 @@ filetype plugin indent on
 
 
 call plug#begin('/usr/share/vim/vim82/plugged')
-Plug 'vim-airline/vim-airline'
 Plug 'luochen1990/rainbow'
+"自动关闭括号
 Plug 'jiangmiao/auto-pairs'
 Plug 'preservim/nerdcommenter'
 Plug 'preservim/nerdtree'
 Plug 'majutsushi/tagbar'
+
+
+"状态栏美化
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jayli/vim-easycomplete'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'nathanaelkane/vim-indent-guides'
+
+
+"css颜色展示插件
+Plug 'ap/vim-css-color'
+
+"vim启动页面
 Plug 'mhinz/vim-startify'
+
+"用于安装代码补全
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+"格式化代码
+Plug 'chiel92/vim-autoformat'
+
+"代码检错
+Plug 'dense-analysis/ale'
 call plug#end()
 
 
-nmap <F3> :TagbarToggle<CR>
+"快捷键映射
 map <F2> :NERDTreeToggle<CR>
+nmap <F3> :TagbarToggle<CR>
+noremap <F4> :Autoformat<CR>
+map <F5> :!javac %&&java %:r <CR>
 
-let g:airline_powerline_fonts = 1  
+
+"自动格式化代码，支持所有文件
+"au BufWrite * :Autoformat
+
+let g:airline_powerline_fonts = 1
+"
 let g:airline#extensions#tabline#enabled = 1
 let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
 let g:airline_theme='random'
-
-
-
+let g:ale_sign_error = ' '
+let g:ale_sign_warning = ' '
 
 
 "括号颜色
 let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
+            \ ['brown',       'RoyalBlue3'],
+            \ ['Darkblue',    'SeaGreen3'],
+            \ ['darkgray',    'DarkOrchid3'],
+            \ ['darkgreen',   'firebrick3'],
+            \ ['darkcyan',    'RoyalBlue3'],
+            \ ['darkred',     'SeaGreen3'],
+            \ ['darkmagenta', 'DarkOrchid3'],
+            \ ['brown',       'firebrick3'],
+            \ ['gray',        'RoyalBlue3'],
+            \ ['black',       'SeaGreen3'],
+            \ ['darkmagenta', 'DarkOrchid3'],
+            \ ['Darkblue',    'firebrick3'],
+            \ ['darkgreen',   'RoyalBlue3'],
+            \ ['darkcyan',    'SeaGreen3'],
+            \ ['darkred',     'DarkOrchid3'],
+            \ ['red',         'firebrick3'],
+            \ ]
 let g:rbpt_max = 16
 let g:rbpt_loadcmd_toggle = 0
 au VimEnter * RainbowParenthesesToggle
@@ -119,4 +167,5 @@ au Syntax * RainbowParenthesesLoadBraces
 
 
 
-map <F5> :!javac %&&java %:r <CR>
+
+cnoremap w!! w !sudo tee % >/dev/null
