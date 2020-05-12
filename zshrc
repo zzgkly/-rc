@@ -1,13 +1,15 @@
+export TERM="xterm-256color"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/zhouan/.oh-my-zsh"
+#export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -67,9 +69,6 @@ export ZSH="/home/zhouan/.oh-my-zsh"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
-
-source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -103,7 +102,6 @@ source $ZSH/oh-my-zsh.sh
 
 
 
-
 # --------------------------------- ALIASES -----------------------------------
 # color
 alias ls='ls --color=auto'
@@ -114,18 +112,15 @@ alias diff='diff --color=auto'
 alias pacman='pacman --color=auto'
 # other
 #alias ..='cd ..'
-alias glog='setterm -linewrap off && git glog && setterm -linewrap on'
 alias scss='scss --no-cache --quiet --sourcemap=none'
 alias xclip='xclip -selection c'
 # replace commands
-command -v vim &> /dev/null && alias vi='vim'
-command -v lsd &> /dev/null && alias ls='lsd --group-dirs first'
-command -v colorls &> /dev/null && alias ls='colorls --sd --gs'
-command -v htop &> /dev/null && alias top='htop'
-command -v gotop &> /dev/null && alias top='gotop -p'
-command -v ytop &> /dev/null && alias top='ytop -p'
-
-
+command -v vim > /dev/null && alias vi='vim'
+  # ls & tree
+command -v lsd > /dev/null && alias ls='lsd --group-dirs first' && \
+    alias tree='lsd --tree'
+command -v colorls > /dev/null && alias ls='colorls --sd --gs' && \
+    alias tree='colorls --tree'
 # ----------------------------------- MISC -----------------------------------
 export VISUAL=vim
 export EDITOR=$VISUAL
@@ -221,42 +216,66 @@ autoload compinit && compinit -d "$HOME/.cache/zcompdump"
 
 # -------------------------------- POWERLEVEL ---------------------------------
 
+s=' ' # fix too wide icons
 POWERLEVEL9K_MODE=nerdfont-complete
+POWERLEVEL9K_SHORTEN_STRATEGY=truncate_beginning
 POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
-POWERLEVEL9K=truncate_beginning
-POWERLEVEL9K_TIME_BACKGROUND=black
-POWERLEVEL9K_TIME_FOREGROUND=white
-POWERLEVEL9K_TIME_FORMAT=%D{%I:%M}
-POWERLEVEL9K_STATUS_VERBOSE=false
+POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION='${P9K_CONTENT} $(whoami | grep -v "^root\$")'
+POWERLEVEL9K_OS_ICON_BACKGROUND=red
+POWERLEVEL9K_OS_ICON_FOREGROUND=white
+POWERLEVEL9K_ROOT_INDICATOR_BACKGROUND=black
+POWERLEVEL9K_ROOT_INDICATOR_FOREGROUND=red
+POWERLEVEL9K_SSH_BACKGROUND=white
+POWERLEVEL9K_SSH_FOREGROUND=blue
+POWERLEVEL9K_FOLDER_ICON=
+POWERLEVEL9K_DIR_BACKGROUND=blue
+POWERLEVEL9K_DIR_FOREGROUND=black
+POWERLEVEL9K_DIR_WRITABLE_BACKGROUND=black
+POWERLEVEL9K_DIR_WRITABLE_FOREGROUND=red
 POWERLEVEL9K_VCS_CLEAN_FOREGROUND=black
 POWERLEVEL9K_VCS_CLEAN_BACKGROUND=green
 POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=black
 POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND=yellow
 POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=white
 POWERLEVEL9K_VCS_MODIFIED_BACKGROUND=black
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND=black
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND=blue
-POWERLEVEL9K_FOLDER_ICON=
-POWERLEVEL9K_STATUS_OK_IN_NON_VERBOSE=true
-POWERLEVEL9K_STATUS_VERBOSE=false
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=0
 POWERLEVEL9K_VCS_UNTRACKED_ICON=●
 POWERLEVEL9K_VCS_UNSTAGED_ICON=±
 POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON=↓
 POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON=↑
-POWERLEVEL9K_VCS_COMMIT_ICON=' '
-POWERLEVEL9K_LEFT_PROMPT_FIRST_SEGMENT_START_SYMBOL=
-POWERLEVEL9K_RIGHT_PROMPT_LAST_SEGMENT_END_SYMBOL=
+POWERLEVEL9K_VCS_COMMIT_ICON=$s
+POWERLEVEL9K_STATUS_VERBOSE=false
+POWERLEVEL9K_STATUS_VERBOSE=false
+POWERLEVEL9K_STATUS_OK_IN_NON_VERBOSE=true
+POWERLEVEL9K_EXECUTION_TIME_ICON=$s
+POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=0
+POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND=black
+POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND=blue
+POWERLEVEL9K_COMMAND_BACKGROUND_JOBS_BACKGROUND=black
+POWERLEVEL9K_COMMAND_BACKGROUND_JOBS_FOREGROUND=cyan
+POWERLEVEL9K_TIME_ICON=
+POWERLEVEL9K_TIME_FORMAT='%D{%I:%M}'
+POWERLEVEL9K_TIME_BACKGROUND=black
+POWERLEVEL9K_TIME_FOREGROUND=white
+POWERLEVEL9K_RAM_ICON=
+POWERLEVEL9K_RAM_FOREGROUND=black
+POWERLEVEL9K_RAM_BACKGROUND=yellow
+POWERLEVEL9K_VI_MODE_FOREGROUND=black
+POWERLEVEL9K_VI_COMMAND_MODE_STRING=NORMAL
+POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND=green
+POWERLEVEL9K_VI_VISUAL_MODE_STRING=VISUAL
+POWERLEVEL9K_VI_MODE_VISUAL_BACKGROUND=blue
+POWERLEVEL9K_VI_OVERWRITE_MODE_STRING=OVERTYPE
+POWERLEVEL9K_VI_MODE_OVERWRITE_BACKGROUND=red
+POWERLEVEL9K_VI_INSERT_MODE_STRING=
+POWERLEVEL9K_LEFT_PROMPT_FIRST_SEGMENT_START_SYMBOL='\uE0B2'
+POWERLEVEL9K_RIGHT_PROMPT_LAST_SEGMENT_END_SYMBOL='\uE0B0'
 POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX='%F{blue}╭─'
 POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX='%F{blue}╰%f '
-POWERLEVEL9K_CUSTOM_OS_ICON='echo   $(whoami) '
-POWERLEVEL9K_CUSTOM_OS_ICON_BACKGROUND=red
-POWERLEVEL9K_CUSTOM_OS_ICON_FOREGROUND=white
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_os_icon root_indicator ssh dir dir_writable vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time status background_jobs time ram)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon root_indicator ssh dir dir_writable vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vi_mode status command_execution_time background_jobs time ram)
 
 if [[ $(tty) == /dev/pts/* ]]
 then
@@ -284,9 +303,7 @@ bindkey ^P switch_powerlevel_multiline_prompt
 lazygit() {
 	USAGE="
 lazygit [OPTION]... <msg>
-
     GIT but lazy
-
     Options:
         --fixup <commit>        runs 'git commit --fixup <commit> [...]'
         --amend                 runs 'git commit --amend --no-edit [...]'
@@ -341,6 +358,7 @@ lazygit [OPTION]... <msg>
 }
 
 
+
 find() {
 	if [ $# = 1 ];
 	then
@@ -349,5 +367,4 @@ find() {
 		command find "$@"
 	fi
 }
-
 
