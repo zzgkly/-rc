@@ -92,6 +92,7 @@ Plug 'luochen1990/rainbow'
 Plug 'jiangmiao/auto-pairs'
 Plug 'preservim/nerdcommenter'
 Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'majutsushi/tagbar'
 
 
@@ -124,7 +125,36 @@ call plug#end()
 map <F2> :NERDTreeToggle<CR>
 nmap <F3> :TagbarToggle<CR>
 noremap <F4> :Autoformat<CR>
-map <F5> :!javac %&&java %:r <CR>
+"map <F5> :!javac %&&java %:r <CR>
+
+"map <F7> :call CompileRunGcc()<cr>
+"func! CompileRunGcc()
+"exec "w"
+"exec "!gcc % -o %<"
+"exec "! ./%<"
+"endfunc
+
+
+map <F5> :call CompileRunGcc()<CR>
+imap <F5> <ESC>:call CompileRunGcc()<CR>
+func! CompileRunGcc()
+    exec "w"
+    exec "cd %:p:h"
+    if &filetype == 'c'
+        exec "!g++ % -o %<"
+        exec "! ./%<"
+    elseif &filetype == 'cpp'
+        exec "!g++ % -o %<"
+        exec "! ./%<"
+    elseif &filetype == 'java' 
+        exec "!javac %" 
+        exec "!java %<"
+    elseif &filetype == 'sh'
+        :!./%
+    endif
+endfunc
+
+
 
 
 "自动格式化代码，支持所有文件
@@ -165,7 +195,18 @@ au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 
-
-
-
-cnoremap w!! w !sudo tee % >/dev/null
+"目录树大小
+let g:NERDTreeWinSize=20
+"显示目录图标
+let g:NERDTreeShowIgnoredStatus = 1
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
